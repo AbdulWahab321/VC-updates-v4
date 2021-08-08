@@ -57,7 +57,7 @@ def createUpdater():
     ref = db.reference("newCode")
     refUpdate = db.reference("Updates").get()
     code = ref.get()
-    repoName = db.reference("repoName")
+    repoName = db.reference("repoName").get()
     urlRef = db.reference("updateURL").get()
     if refUpdate == True:
 
@@ -130,11 +130,15 @@ else:
             if os.path.exists(f"dist") == False and os.path.exists(f"updater.py"):
                 os.system(
                     f'pip install pyinstaller&&pyinstaller --onefile updater.py&&cd dist&&move "updater.exe" "{os.getcwd()}"&&cd..&&start updater.exe')
+
                 runps(f"cd {os.getcwd()} -AND Remove-Item dist -Recurse -Force")
                 runps(f"cd {os.getcwd()} -AND Remove-Item build -Recurse -Force")
+                sys.exit(0)
             else:
                 os.system(f'cd dist&&move "updater.exe" "{os.getcwd()}"&&cd..&&start updater.exe')
+
             os.system(f'del "{os.getcwd()}/updater.py"&&rmdir /s /q dist&&rmdir /s /q build')
+            sys.exit(0)
     else:
         cprint("HEY.. You are up to date!!", "cyan")
 
