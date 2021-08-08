@@ -58,9 +58,9 @@ def createUpdater():
     refUpdate = db.reference("Updates").get()
     code = ref.get()
     repoName = db.reference("repoName")
-
+    urlRef = db.reference("updateURL").get()
     if refUpdate == True:
-        urlRef = db.reference("updateURL").get()
+
         if os.path.exists("updater.exe"):
             os.system("updater.exe")
         else:
